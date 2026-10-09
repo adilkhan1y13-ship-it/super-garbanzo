@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Fire Name Style Maker</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b18;color:#fff;font-family:Arial,sans-serif}
+header{padding:25px 15px;text-align:center;background:linear-gradient(120deg,#6d28d9,#db2777)}
+h1{font-size:25px;margin:0 0 8px}header p{margin:0;font-size:14px}
+main{max-width:650px;margin:20px auto;padding:12px}
+.panel{background:#15172b;border:1px solid #6b48a6;border-radius:17px;padding:18px}
+label{display:block;margin:14px 0 8px;font-weight:bold}
+input,select{width:100%;padding:13px;border-radius:10px;border:1px solid #554477;background:#090c1b;color:white;font-size:16px}
+button{border:0;border-radius:10px;padding:12px;color:white;font-weight:bold;background:linear-gradient(90deg,#7c3aed,#db2777);cursor:pointer}
+.full{width:100%;margin-top:15px}
+.output{margin-top:16px;padding:16px;background:#080a15;border:1px solid #7650bb;border-radius:12px;text-align:center}
+#result{font-size:25px;color:#ffc8fa;overflow-wrap:anywhere;margin:15px 0;text-shadow:0 0 12px #c026d3}
+.actions{display:flex;gap:8px}.actions button{flex:1}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.card{padding:12px 8px;border-radius:10px;background:#211c39;border:1px solid #46376b;text-align:center;overflow-wrap:anywhere}
+.card div{font-weight:bold;color:#ffd5ff;margin-bottom:10px;min-height:32px}
+.card button{width:100%;padding:9px}
+.note{font-size:13px;line-height:1.6;color:#c8c5d9}
+footer{text-align:center;padding:18px;color:#bcb8cf;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🔥 FF Stylish Name Maker</h1>
+<p>Munna Jaisa Stylish Nickname Banao!</p>
+</header>
+<main><section class="panel">
+<label>Apna Naam Likho</label>
+<input id="name" maxlength="22" value="Munna" placeholder="Jaise: Munna">
+<label>Prefix Chuno</label>
+<select id="prefix">
+<option value="ᵀᴳᴿ〆">ᵀᴳᴿ〆</option>
+<option value="ᵀᴳ〆">ᵀᴳ〆</option>
+<option value="亗">亗</option>
+<option value="乂">乂</option>
+<option value="꧁༒">꧁༒</option>
+<option value="『">『</option>
+<option value="★彡">★彡</option>
+<option value="">Koi Prefix Nahi</option>
+</select>
+<label>Suffix Chuno</label>
+<select id="suffix">
+<option value="❿ᴋ">❿ᴋ</option>
+<option value="᭄࿐">᭄࿐</option>
+<option value="亗">亗</option>
+<option value="★">★</option>
+<option value="YT">YT</option>
+<option value="࿐">࿐</option>
+<option value="〆">〆</option>
+<option value="">Koi Suffix Nahi</option>
+</select>
+<label>Style Chuno</label>
+<select id="style">
+<option value="classic">ᵀᴳᴿ〆Munna ❿ᴋ</option>
+<option value="crown">꧁༒ Munna ༒꧂</option>
+<option value="bracket">『Munna』</option>
+<option value="stars">★彡Munna彡★</option>
+<option value="pro">亗 Munna 亗</option>
+</select>
+<button class="full" onclick="makeName()">⚡ Stylish Name Banao</button>
+<div class="output">
+<div>Tumhara Stylish Nickname</div>
+<div id="result">ᵀᴳᴿ〆Munna ❿ᴋ</div>
+<div class="actions">
+<button onclick="copyResult()">📋 Copy Karo</button>
+<button onclick="randomStyle()">🔄 Dusra Style</button>
+</div>
+<p id="message" class="note">Naam copy karke Free Fire mein try karo!</p>
+</div>
+<h2>🔥 Aur Stylish Names</h2>
+<p class="note">Pasand ka naam choose karo aur Copy Karo dabao.</p>
+<div class="grid" id="names"></div>
+</section></main>
+<footer>Fan-made nickname tool · Free Fire ke liye Hinglish mein ❤️</footer>
+<script>
+const samples=[
+"ᵀᴳᴿ〆Munna ❿ᴋ",
+"ᵀᴳᴿ〆Mᴜɴɴᴀ ❿ᴋ",
+"ᵀᴳᴿメMunna࿐",
+"亗Munna亗",
+"꧁༒Munna༒꧂",
+"乂Munna乂",
+"『Munna』",
+"★彡Munna彡★",
+"ᵀᴳ〆Mᵁᴺᴺᴬ",
+"ᵀᴳᴿ〆M U N N A",
+"ᵀᴳᴿ〆Munna YT",
+"ᵀᴳᴿ〆Munna࿐",
+"᭄Munna᭄",
+"Munna 亗 ❿ᴋ",
+"么Munna么",
+"꧁ঔৣMunnaঔৣ꧂"
+];
+function makeName(){
+ const name=document.getElementById("name").value.trim()||"Munna";
+ const style=document.getElementById("style").value;
+ let result;
+ if(style==="crown") result="꧁༒ "+name+" ༒꧂";
+ else if(style==="bracket") result="『"+name+"』";
+ else if(style==="stars") result="★彡"+name+"彡★";
+ else if(style==="pro") result="亗 "+name+" 亗";
+ else result=document.getElementById("prefix").value+name+" "+document.getElementById("suffix").value;
+ document.getElementById("result").textContent=result;
+ document.getElementById("message").textContent="Ready hai! Copy karke game mein try karo.";
+}
+async function copyText(value){
+ const msg=document.getElementById("message");
+ try{await navigator.clipboard.writeText(value);msg.textContent="✅ Copy ho gaya! Ab game mein paste karo."}
+ catch(e){
+  const t=document.createElement("textarea");t.value=value;document.body.appendChild(t);t.select();
+  const ok=document.execCommand("copy");t.remove();
+  msg.textContent=ok?"✅ Copy ho gaya!":"Text select karke copy karo.";
+ }
+}
+function copyResult(){copyText(document.getElementById("result").textContent)}
+function randomStyle(){
+ const opts=document.getElementById("style").options;
+ document.getElementById("style").selectedIndex=Math.floor(Math.random()*opts.length);
+ makeName();
+}
+function renderSamples(){
+ const box=document.getElementById("names");
+ samples.forEach(s=>{
+  const card=document.createElement("div");card.className="card";
+  const title=document.createElement("div");title.textContent=s;
+  const button=document.createElement("button");button.textContent="📋 Copy Karo";
+  button.onclick=()=>copyText(s);
+  card.append(title,button);box.appendChild(card);
+ });
+}
+document.getElementById("name").addEventListener("input",makeName);
+document.getElementById("prefix").addEventListener("change",makeName);
+document.getElementById("suffix").addEventListener("change",makeName);
+document.getElementById("style").addEventListener("change",makeName);
+renderSamples();makeName();
+</script>
+</body>
+</html>
